@@ -24,6 +24,7 @@
           type="text"
           placeholder="user"
           class="login__input login__input--user"
+          name="user"
         />
         <!-- In practice, use type="password" -->
         <input
@@ -31,6 +32,7 @@
           placeholder="PIN"
           maxlength="4"
           class="login__input login__input--pin"
+          name="pin"
         />
         <button class="login__btn">&rarr;</button>
       </form>
@@ -79,11 +81,19 @@
       <div class="operation operation--transfer">
         <h2>Transfer money</h2>
         <form class="form form--transfer">
-          <input type="text" class="form__input form__input--to" />
-          <input type="number" class="form__input form__input--amount" />
+          <input
+            type="text"
+            class="form__input form__input--to"
+            id="transfer-to"
+          />
+          <input
+            type="number"
+            class="form__input form__input--amount"
+            id="transferring-amount"
+          />
           <button class="form__btn form__btn--transfer">&rarr;</button>
-          <label class="form__label">Transfer to</label>
-          <label class="form__label">Amount</label>
+          <label class="form__label" for="transfer-to">Transfer to</label>
+          <label class="form__label" for="transferring-amount">Amount</label>
         </form>
       </div>
 
@@ -91,9 +101,15 @@
       <div class="operation operation--loan">
         <h2>Request loan</h2>
         <form class="form form--loan">
-          <input type="number" class="form__input form__input--loan-amount" />
+          <input
+            type="number"
+            class="form__input form__input--loan-amount"
+            id="amount"
+          />
           <button class="form__btn form__btn--loan">&rarr;</button>
-          <label class="form__label form__label--loan">Amount</label>
+          <label class="form__label form__label--loan" for="amount"
+            >Amount</label
+          >
         </form>
       </div>
 
@@ -101,15 +117,20 @@
       <div class="operation operation--close">
         <h2>Close account</h2>
         <form class="form form--close">
-          <input type="text" class="form__input form__input--user" />
+          <input
+            type="text"
+            class="form__input form__input--user"
+            id="confirm-user"
+          />
           <input
             type="password"
             maxlength="6"
             class="form__input form__input--pin"
+            id="confirm-pin"
           />
           <button class="form__btn form__btn--close">&rarr;</button>
-          <label class="form__label">Confirm user</label>
-          <label class="form__label">Confirm PIN</label>
+          <label class="form__label" for="confirm-user">Confirm user</label>
+          <label class="form__label" for="confirm-pin">Confirm PIN</label>
         </form>
       </div>
 
