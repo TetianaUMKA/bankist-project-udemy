@@ -58,9 +58,19 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 const displayMovements = function (movements) {
+  let sumIn = 0;
+  let sumOut = 0;
   containerMovements.innerHTML = '';
   // containerMovements.textContent = '';
   movements.forEach(function (movement, i) {
+    if (movement > 0) {
+      sumIn += movement;
+      labelSumIn.textContent = `${sumIn}€`;
+    } else {
+      sumOut -= movement;
+      labelSumOut.textContent = `${sumOut}€`;
+    }
+    // movement > 0 ? (sumIn += movement) : (sumOut -= movement);
     const movementType = movement > 0 ? 'deposit' : 'withdrawal';
     const html = `
       <div class="movements__row">
@@ -73,5 +83,7 @@ const displayMovements = function (movements) {
 
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
+  console.log(sumIn, sumOut);
 };
+
 displayMovements(account1.movements);
