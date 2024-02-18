@@ -57,20 +57,30 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+let sumIn = 0;
+let sumOut = 0;
+let sumInterest = 0;
+
+const countSummary = function (movement) {
+  if (movement > 0) {
+    sumIn += movement;
+    labelSumIn.textContent = `${sumIn}€`;
+  } else {
+    sumOut -= movement;
+    labelSumOut.textContent = `${sumOut}€`;
+  }
+
+  sumInterest = sumIn - sumOut;
+  labelSumInterest.textContent = `${sumInterest}€`;
+
+  console.log(sumIn, sumOut, sumInterest);
+};
+
 const displayMovements = function (movements) {
-  let sumIn = 0;
-  let sumOut = 0;
   containerMovements.innerHTML = '';
-  // containerMovements.textContent = '';
+  // containerMovements.textContent = ''; // both execute the same action to clean containerMovements that has already written into html (in this case)
+
   movements.forEach(function (movement, i) {
-    if (movement > 0) {
-      sumIn += movement;
-      labelSumIn.textContent = `${sumIn}€`;
-    } else {
-      sumOut -= movement;
-      labelSumOut.textContent = `${sumOut}€`;
-    }
-    // movement > 0 ? (sumIn += movement) : (sumOut -= movement);
     const movementType = movement > 0 ? 'deposit' : 'withdrawal';
     const html = `
       <div class="movements__row">
@@ -82,8 +92,9 @@ const displayMovements = function (movements) {
     `;
 
     containerMovements.insertAdjacentHTML('afterbegin', html);
+
+    countSummary(movement);
   });
-  console.log(sumIn, sumOut);
 };
 
 displayMovements(account1.movements);
