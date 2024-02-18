@@ -59,7 +59,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 let sumIn = 0;
 let sumOut = 0;
-let sumInterest = 0;
+let currentBalance = 0;
 
 const countSummary = function (movement) {
   if (movement > 0) {
@@ -70,10 +70,10 @@ const countSummary = function (movement) {
     labelSumOut.textContent = `${sumOut}€`;
   }
 
-  sumInterest = sumIn - sumOut;
-  labelSumInterest.textContent = `${sumInterest}€`;
+  currentBalance = sumIn - sumOut;
+  labelBalance.textContent = `${currentBalance}€`;
 
-  console.log(sumIn, sumOut, sumInterest);
+  console.log(sumIn, sumOut, currentBalance);
 };
 
 const displayMovements = function (movements) {
