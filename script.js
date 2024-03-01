@@ -111,3 +111,10 @@ const createUsernames = function (accounts) {
 createUsernames(accounts);
 
 console.log(accounts);
+
+const calcBallance = function (movements) {
+  labelBalance.textContent = movements.reduce(
+    (accumulator, currentValue) => accumulator + currentValue
+  );
+};
+calcBallance(account1.movements);
