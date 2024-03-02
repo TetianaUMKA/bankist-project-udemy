@@ -57,25 +57,6 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-// let sumIn = 0;
-// let sumOut = 0;
-// let currentBalance = 0;
-
-// const countSummary = function (movement) {
-//   if (movement > 0) {
-//     sumIn += movement;
-//     labelSumIn.textContent = `${sumIn}€`;
-//   } else {
-//     sumOut -= movement;
-//     labelSumOut.textContent = `${sumOut}€`;
-//   }
-
-//   currentBalance = sumIn - sumOut;
-//   labelBalance.textContent = `${currentBalance}€`;
-
-//   console.log(sumIn, sumOut, currentBalance);
-// };
-
 const displayMovements = function (movements) {
   containerMovements.innerHTML = '';
   // containerMovements.textContent = ''; // both execute the same action to clean containerMovements that has already written into html (in this case)
@@ -92,8 +73,6 @@ const displayMovements = function (movements) {
     `;
 
     containerMovements.insertAdjacentHTML('afterbegin', html);
-
-    // countSummary(movement);
   });
 };
 
@@ -108,7 +87,7 @@ const calcDisplaySummary = function (movements) {
   const sumOut = movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${-sumOut}€`;
+  labelSumOut.textContent = `${Math.abs(sumOut)}€`;
 };
 
 calcDisplaySummary(account1.movements);
