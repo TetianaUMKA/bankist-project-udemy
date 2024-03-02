@@ -57,24 +57,24 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-let sumIn = 0;
-let sumOut = 0;
-let currentBalance = 0;
+// let sumIn = 0;
+// let sumOut = 0;
+// let currentBalance = 0;
 
-const countSummary = function (movement) {
-  if (movement > 0) {
-    sumIn += movement;
-    labelSumIn.textContent = `${sumIn}€`;
-  } else {
-    sumOut -= movement;
-    labelSumOut.textContent = `${sumOut}€`;
-  }
+// const countSummary = function (movement) {
+//   if (movement > 0) {
+//     sumIn += movement;
+//     labelSumIn.textContent = `${sumIn}€`;
+//   } else {
+//     sumOut -= movement;
+//     labelSumOut.textContent = `${sumOut}€`;
+//   }
 
-  currentBalance = sumIn - sumOut;
-  labelBalance.textContent = `${currentBalance}€`;
+//   currentBalance = sumIn - sumOut;
+//   labelBalance.textContent = `${currentBalance}€`;
 
-  console.log(sumIn, sumOut, currentBalance);
-};
+//   console.log(sumIn, sumOut, currentBalance);
+// };
 
 const displayMovements = function (movements) {
   containerMovements.innerHTML = '';
@@ -93,18 +93,32 @@ const displayMovements = function (movements) {
 
     containerMovements.insertAdjacentHTML('afterbegin', html);
 
-    countSummary(movement);
+    // countSummary(movement);
   });
 };
 
 displayMovements(account1.movements);
+
+const calcDisplaySummary = function (movements) {
+  const sumIn = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${sumIn}€`;
+
+  const sumOut = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${-sumOut}€`;
+};
+
+calcDisplaySummary(account1.movements);
 
 const calcDisplayBalance = function (movements) {
   // labelBalance.textContent = movements.reduce(
   //   (accumulator, currentValue) => accumulator + currentValue
   // );
   const balance = movements.reduce((accumulator, mov) => accumulator + mov);
-  labelBalance.textContent = balance;
+  labelBalance.textContent = `${balance} EUR`;
 };
 calcDisplayBalance(account1.movements);
 
