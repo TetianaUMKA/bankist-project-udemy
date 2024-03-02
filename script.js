@@ -88,6 +88,13 @@ const calcDisplaySummary = function (movements) {
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumOut.textContent = `${Math.abs(sumOut)}€`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(mov => (mov * 1.2) / 100)
+    .filter(int => int >= 1)
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`;
 };
 
 calcDisplaySummary(account1.movements);
@@ -97,7 +104,7 @@ const calcDisplayBalance = function (movements) {
   //   (accumulator, currentValue) => accumulator + currentValue
   // );
   const balance = movements.reduce((accumulator, mov) => accumulator + mov);
-  labelBalance.textContent = `${balance} EUR`;
+  labelBalance.textContent = `${balance} €`;
 };
 calcDisplayBalance(account1.movements);
 
