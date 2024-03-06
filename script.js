@@ -76,8 +76,6 @@ const displayMovements = function (movements) {
   });
 };
 
-displayMovements(account1.movements);
-
 const calcDisplaySummary = function (movements) {
   const sumIn = movements
     .filter(mov => mov > 0)
@@ -97,8 +95,6 @@ const calcDisplaySummary = function (movements) {
   labelSumInterest.textContent = `${interest}€`;
 };
 
-calcDisplaySummary(account1.movements);
-
 const calcDisplayBalance = function (movements) {
   // labelBalance.textContent = movements.reduce(
   //   (accumulator, currentValue) => accumulator + currentValue
@@ -106,7 +102,6 @@ const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((accumulator, mov) => accumulator + mov);
   labelBalance.textContent = `${balance} €`;
 };
-calcDisplayBalance(account1.movements);
 
 const createUsernames = function (accounts) {
   accounts.forEach(acc => {
@@ -120,3 +115,33 @@ const createUsernames = function (accounts) {
 createUsernames(accounts);
 
 console.log(accounts);
+
+// Event handler
+let currentAccount = {};
+
+btnLogin.addEventListener('click', function (e) {
+  // Prevent form from submitting
+  e.preventDefault();
+  currentAccount = accounts.find(
+    acc =>
+      acc.username === inputLoginUsername.value &&
+      acc.pin === Number(inputLoginPin.value)
+  );
+  console.log(currentAccount);
+  if (currentAccount) {
+    containerApp.style.opacity = 1;
+    containerApp.style.transition = 'all 1s';
+
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+
+    displayMovements(currentAccount.movements);
+    calcDisplayBalance(currentAccount.movements);
+    calcDisplaySummary(currentAccount.movements);
+  } else {
+    alert(
+      '❌ You enter wrong login or password! You have two attempts, then the account will be blocked'
+    );
+  }
+});
