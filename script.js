@@ -76,7 +76,7 @@ const displayMovements = function (movements) {
   });
 };
 
-const calcDisplaySummary = function (movements) {
+const calcDisplaySummary = function (movements, interestRate) {
   const sumIn = movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
@@ -89,7 +89,7 @@ const calcDisplaySummary = function (movements) {
 
   const interest = movements
     .filter(mov => mov > 0)
-    .map(mov => (mov * 1.2) / 100)
+    .map(mov => (mov * interestRate) / 100)
     .filter(int => int >= 1)
     .reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `${interest}€`;
@@ -136,9 +136,15 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
 
+    // Clear input fields
+
+    // inputLoginUsername.value = '';
+    // inputLoginPin.value = '';
+    inputLoginUsername.value = inputLoginPin.value = '';
+
     displayMovements(currentAccount.movements);
     calcDisplayBalance(currentAccount.movements);
-    calcDisplaySummary(currentAccount.movements);
+    calcDisplaySummary(currentAccount.movements, currentAccount.interestRate);
   } else {
     alert(
       '❌ You enter wrong login or password! You have two attempts, then the account will be blocked'
