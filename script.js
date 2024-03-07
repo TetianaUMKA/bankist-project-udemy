@@ -57,6 +57,8 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+let currentAccount = {};
+
 const displayMovements = function (movements) {
   containerMovements.innerHTML = '';
   // containerMovements.textContent = ''; // both execute the same action to clean containerMovements that has already written into html (in this case)
@@ -80,19 +82,19 @@ const calcDisplaySummary = function (movements, interestRate) {
   const sumIn = movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${sumIn}€`;
+  labelSumIn.textContent = `${sumIn} €`;
 
   const sumOut = movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(sumOut)}€`;
+  labelSumOut.textContent = `${Math.abs(sumOut)} €`;
 
   const interest = movements
     .filter(mov => mov > 0)
     .map(mov => (mov * interestRate) / 100)
     .filter(int => int >= 1)
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest} €`;
 };
 
 const calcDisplayBalance = function (movements) {
@@ -101,6 +103,7 @@ const calcDisplayBalance = function (movements) {
   // );
   const balance = movements.reduce((accumulator, mov) => accumulator + mov);
   labelBalance.textContent = `${balance} €`;
+  currentAccount.balance = balance;
 };
 
 const createUsernames = function (accounts) {
@@ -117,7 +120,7 @@ createUsernames(accounts);
 console.log(accounts);
 
 // Event handler
-let currentAccount = {};
+// let currentAccount = {};
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -147,7 +150,27 @@ btnLogin.addEventListener('click', function (e) {
     calcDisplaySummary(currentAccount.movements, currentAccount.interestRate);
   } else {
     alert(
-      '❌ You enter wrong login or password! You have two attempts, then the account will be blocked'
+      '❌ You enter wrong login or password! You have two attempts, then the account will be blocked ❌'
     );
   }
+});
+
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+  const recipient = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
+  const transferAmount = Number(inputTransferAmount.value);
+  if (
+    recipient &&
+    currentAccount.balance > transferAmount &&
+    transferAmount > 0
+  ) {
+    recipient.movements.push(Number(transferAmount));
+    currentAccount.balance -= transferAmount;
+    alert('Payment made!✅');
+    inputTransferTo.value = inputTransferAmount.value = '';
+  } else if (currentAccount.balance) {
+    alert('There is insufficient funds on the balance!❌');
+  } else alert('Incorrectly entered data!');
 });
