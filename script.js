@@ -98,9 +98,6 @@ const calcDisplaySummary = function (movements, interestRate) {
 };
 
 const calcDisplayBalance = function (movements) {
-  // labelBalance.textContent = movements.reduce(
-  //   (accumulator, currentValue) => accumulator + currentValue
-  // );
   const balance = movements.reduce((accumulator, mov) => accumulator + mov);
   labelBalance.textContent = `${balance} €`;
   currentAccount.balance = balance;
@@ -120,7 +117,7 @@ createUsernames(accounts);
 console.log(accounts);
 
 // Event handler
-// let currentAccount = {};
+// let currentAccount = {}; put it on the top
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
