@@ -163,8 +163,14 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.balance > transferAmount &&
     transferAmount > 0
   ) {
-    recipient.movements.push(Number(transferAmount));
-    currentAccount.balance -= transferAmount;
+    recipient.movements.push(transferAmount);
+
+    currentAccount.movements.push(-transferAmount);
+
+    displayMovements(currentAccount.movements);
+    calcDisplayBalance(currentAccount.movements);
+    calcDisplaySummary(currentAccount.movements, currentAccount.interestRate);
+
     alert('Payment made!✅');
     inputTransferTo.value = inputTransferAmount.value = '';
   } else if (currentAccount.balance) {
