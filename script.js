@@ -116,8 +116,14 @@ createUsernames(accounts);
 
 console.log(accounts);
 
+const updateUI = function (currentAccount) {
+  displayMovements(currentAccount.movements);
+  calcDisplayBalance(currentAccount.movements);
+  calcDisplaySummary(currentAccount.movements, currentAccount.interestRate);
+};
+
 // Event handler
-// let currentAccount = {}; put it on the top
+// let currentAccount = {}; put it on the top, but it was born in this handler 💥
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -142,9 +148,7 @@ btnLogin.addEventListener('click', function (e) {
     // inputLoginPin.value = '';
     inputLoginUsername.value = inputLoginPin.value = '';
 
-    displayMovements(currentAccount.movements);
-    calcDisplayBalance(currentAccount.movements);
-    calcDisplaySummary(currentAccount.movements, currentAccount.interestRate);
+    updateUI(currentAccount);
   } else {
     alert(
       '❌ You enter wrong login or password! You have two attempts, then the account will be blocked ❌'
@@ -160,6 +164,7 @@ btnTransfer.addEventListener('click', function (e) {
   const transferAmount = Number(inputTransferAmount.value);
   if (
     recipient &&
+    recipient.username !== currentAccount.username &&
     currentAccount.balance > transferAmount &&
     transferAmount > 0
   ) {
@@ -167,13 +172,14 @@ btnTransfer.addEventListener('click', function (e) {
 
     currentAccount.movements.push(-transferAmount);
 
-    displayMovements(currentAccount.movements);
-    calcDisplayBalance(currentAccount.movements);
-    calcDisplaySummary(currentAccount.movements, currentAccount.interestRate);
+    updateUI(currentAccount);
 
     alert('Payment made!✅');
     inputTransferTo.value = inputTransferAmount.value = '';
-  } else if (currentAccount.balance) {
+  } else if (currentAccount.balance < transferAmount) {
     alert('There is insufficient funds on the balance!❌');
   } else alert('Incorrectly entered data!');
 });
+
+console.log(account1);
+console.log(currentAccount);
