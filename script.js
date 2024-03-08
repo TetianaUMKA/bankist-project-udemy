@@ -188,7 +188,7 @@ btnClose.addEventListener('click', function (e) {
     Number(inputClosePin.value) === currentAccount.pin
   ) {
     const accIndex = accounts.findIndex(acc => acc === currentAccount);
-    accounts.splice(accIndex, accIndex + 1);
+    accounts.splice(accIndex, 1);
 
     inputCloseUsername.value = inputClosePin.value = '';
 
