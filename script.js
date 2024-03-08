@@ -181,5 +181,24 @@ btnTransfer.addEventListener('click', function (e) {
   } else alert('Incorrectly entered data!');
 });
 
-console.log(account1);
-console.log(currentAccount);
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const accIndex = accounts.findIndex(acc => acc === currentAccount);
+    accounts.splice(accIndex, accIndex + 1);
+
+    inputCloseUsername.value = inputClosePin.value = '';
+
+    containerApp.style.opacity = 0;
+    containerApp.style.transition = 'none';
+
+    labelWelcome.textContent = 'Log in to get started';
+    alert(
+      'Your account has been closed! You can register a new account as soon as you need!'
+    );
+  } else alert('Incorrect user or password ⚠︎');
+  console.log(accounts);
+});
