@@ -181,6 +181,18 @@ btnTransfer.addEventListener('click', function (e) {
   } else alert('Incorrectly entered data!');
 });
 
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const loanAmount = Number(inputLoanAmount.value);
+  if (loanAmount > 0 && currentAccount.movements.some(mov => mov > 2000)) {
+    alert(
+      `Your loan request accepted. Founds in the amount of ${loanAmount} will be available in the account in 5 minutes.`
+    );
+    currentAccount.movements.push(loanAmount);
+    updateUI(currentAccount);
+  }
+});
+
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
   if (
