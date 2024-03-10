@@ -184,13 +184,21 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
   const loanAmount = Number(inputLoanAmount.value);
-  if (loanAmount > 0 && currentAccount.movements.some(mov => mov > 2000)) {
+  if (
+    loanAmount > 0 &&
+    currentAccount.movements.some(mov => mov >= loanAmount * 0.1)
+  ) {
     alert(
-      `Your loan request accepted. Founds in the amount of ${loanAmount} will be available in the account in 5 minutes.`
+      `Your loan request accepted. Founds in the amount of ${loanAmount} will be available in the account within 5 minutes.🎉`
     );
+
     currentAccount.movements.push(loanAmount);
-    updateUI(currentAccount);
-  }
+    setTimeout(function () {
+      updateUI(currentAccount);
+    }, 20000);
+
+    inputLoanAmount.value = '';
+  } else alert('Sorry, but your request loan has been rejected!🔴');
 });
 
 btnClose.addEventListener('click', function (e) {
