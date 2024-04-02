@@ -61,20 +61,20 @@ let currentAccount = {};
 
 const displayMovements = function (movements) {
   containerMovements.innerHTML = '';
-  // containerMovements.textContent = ''; // both execute the same action to clean containerMovements that has already written into html (in this case)
+  // containerMovements.textContent = ''; // both execute the same action to clean containerMovements which has already written into html (in this case)
 
   movements.forEach(function (movement, i) {
     const movementType = movement > 0 ? 'deposit' : 'withdrawal';
-    const html = `
+    const htmlMovements = `
       <div class="movements__row">
         <div class="movements__type movements__type--${movementType}">${
       i + 1
     } ${movementType}</div>
-        <div class="movements__value">${movement}</div>
+        <div class="movements__value">${movement} €</div>
       </div>
     `;
 
-    containerMovements.insertAdjacentHTML('afterbegin', html);
+    containerMovements.insertAdjacentHTML('afterbegin', htmlMovements);
   });
 };
 
