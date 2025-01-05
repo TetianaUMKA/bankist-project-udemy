@@ -13,15 +13,21 @@ body {
   font-family: 'Poppins', sans-serif;
   color: #444;
   background-color: #f3f3f3;
+  padding: 0 2rem;
+}
+
+.container {
   height: 100vh;
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  padding: 0 2rem;
+  padding: 2rem 0;
 }
 
 .welcome {
@@ -81,7 +87,7 @@ nav {
 .app {
   position: relative;
   max-width: 100rem;
-  margin: 4rem auto;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 4fr 3fr;
   grid-template-rows: auto repeat(3, 15rem) auto;
@@ -90,6 +96,7 @@ nav {
   /* NOTE This creates the fade in/out animation */
   opacity: 0;
   /* transition: all 1s; */
+  flex-grow: 1;
 }
 
 .balance {
@@ -291,9 +298,8 @@ h2 {
 }
 
 footer {
-  position: fixed;
-  bottom: 2%;
-  left: 40%;
+  padding: 2rem 0;
+  text-align: center;
 }
 
 .copyright {
